@@ -1,0 +1,141 @@
+.search-container{
+  margin-top: 20px; 
+  width: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  input {
+    width: inherit;
+    background: $background;
+    padding: 20px; 
+    border-radius: 5px 0 0 5px;
+    border: none;
+  }
+  img {
+    width: 30px;
+    padding: 13px; 
+    background-color: $background;
+    border-radius: 0 5px 5px 0;
+  }
+}
+
+.select-container {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  gap: 20px;
+
+
+  #ig-select, #ap-select, #ust-select {
+    width: 500px; 
+    //position: absolute;
+    z-index: 10;
+    
+  }
+
+  #ig-select input,  #ap-select  input, #ust-select input {
+    //background: $blue;
+    color: white; 
+    width: -webkit-fill-available;
+    border-radius: 5px 5px 0 0 ;
+    border: none;
+    padding: 20px;
+    &::placeholder {
+      color: white;
+      opacity: 50%;
+    }
+  }
+
+  #ig-select input {
+    background: $blue;
+  }
+
+  #ap-select  input{
+    background: $green;
+  }
+
+  #ust-select input {
+    background: $red;
+  }
+    //arrow in select
+    img.input-img {
+      width: 20px;
+      position: relative;
+      right: -460px;
+      top: -35px;
+      transition: transform .2s ease-in-out; 
+    }
+
+
+  .ingredients-container , .appareil-container, .ust-container {
+
+    color: white; 
+    border-radius: 0 0 5px 5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    padding: 20px;
+    padding-right: 60px;
+    max-height: 405px;
+    overflow: scroll;
+    position: absolute;
+    top: 285px;
+    z-index: 10;
+    width: 420px;
+  }
+
+  .ingredients-container {
+    background-color: $blue;
+  }
+
+  .appareil-container {
+    background-color: $green;
+  }
+
+  .ust-container {
+    background-color: $red;
+  }
+
+  #ig-select[data-state="collapsed"],  #ap-select[data-state="collapsed"] ,  #ust-select[data-state="collapsed"]   {
+
+    width: 230px;
+
+    
+
+      input {
+        border-radius: 5px;
+      }
+
+      img {
+        transform:rotate(180deg);
+        right: -195px;
+      }
+  }
+
+  #ig-select[data-state="collapsed"] {
+    .ingredients-container {
+      display: none; 
+    }
+  }
+
+  #ap-select[data-state="collapsed"] {
+    .appareil-container {
+      display: none;
+    }
+  }
+
+  #ust-select[data-state="collapsed"] {
+    .ust-container {
+      display: none; 
+    }
+  }
+
+
+ 
+
+ 
+
+   
+
+}
+

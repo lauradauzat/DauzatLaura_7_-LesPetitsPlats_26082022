@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les petits plats</title>
+    <link rel="stylesheet" href="style/scss/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <img src="/assets/logo.png" alt="">
+        <div class="search-container">
+            <input type="text" name="mainsearch" id="search" placeholder="Rechercher une recette">
+            <img src="/assets/mglass.png" alt="">
+        </div>
+        <div id="tags-container">
+            
+
+        </div>
+        <div class="select-container">
+            <div id="ig-select" data-state="collapsed" >
+                <div class="input-container">
+                    <input id="ingSearch" type="text" placeholder="Rechercher un ingrédient">
+                    <img id="arrow-up" class="input-img" src="/assets/up.png" alt="">
+                </div>
+                
+                <div class="ingredients-container" id="ingSelectContainer">
+
+                </div>
+
+            </div>
+
+            <div id="ap-select" data-state="collapsed" >
+                <div class="input-container">
+                    <input id="apSearch" type="text" placeholder="Rechercher un appareil">
+                    <img id="arrow-ap" class="input-img" src="/assets/up.png" alt="">
+                </div>
+                
+                <div class="appareil-container" id="apSelectContainer">
+
+                </div>
+
+           
+            </div>
+
+            <div id="ust-select" data-state="collapsed">
+                <div class="input-container" >
+                    <input id="ustSearch" type="text" placeholder="Rechercher un ustensile">
+                    <img id="arrow-ust" class="input-img" src="/assets/up.png" alt="">
+                </div>
+
+                <div class="ust-container" id="ustSelectContainer" >
+
+                </div>
+            </div>
+          
+        </div>
+    </header>
+    <main>
+        <div class="card-container" id="card-container">
+
+        </div>
+    </main>
+    
+<script src="backend/recipes.js"></script>   
+<script src="scripts/factories/recipesFactories.js"></script> 
+<script src="scripts/index.js"></script>
+<script src="scripts/search.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,254 @@
+* {
+  font-family: 'Lato', sans-serif;
+}
+
+main {
+  margin-top: 150px;
+}
+
+#card-container {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  gap: 30px;
+}
+
+.card-img {
+  min-height: 178px;
+  background-color: #C7BEBE;
+  border-radius: 5px 5px  0 0;
+}
+
+.card-txt {
+  height: 168px;
+  background-color: #E7E7E7;
+  border-radius: 0 0 5px 5px;
+  padding: 20px;
+}
+
+.card-txt > * {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: start;
+      -ms-flex-align: start;
+          align-items: flex-start;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+.card-txt .timing-card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.card-txt .timing-card img {
+  margin-right: 10px;
+}
+
+.card-txt h2, .card-txt .timing-card p {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.card-txt .down-card-txt {
+  font-size: 12px;
+}
+
+.card-txt .down-card-txt > * {
+  width: 48%;
+}
+
+.card-txt .down-card-txt ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.card-txt .down-card-txt p {
+  width: 171px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 6;
+  -webkit-box-orient: vertical;
+  position: absolute;
+}
+
+.search-container {
+  margin-top: 20px;
+  width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.search-container input {
+  width: inherit;
+  background: #E7E7E7;
+  padding: 20px;
+  border-radius: 5px 0 0 5px;
+  border: none;
+}
+
+.search-container img {
+  width: 30px;
+  padding: 13px;
+  background-color: #E7E7E7;
+  border-radius: 0 5px 5px 0;
+}
+
+.select-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  gap: 20px;
+}
+
+.select-container #ig-select, .select-container #ap-select, .select-container #ust-select {
+  width: 500px;
+  z-index: 10;
+}
+
+.select-container #ig-select input, .select-container #ap-select input, .select-container #ust-select input {
+  color: white;
+  width: -webkit-fill-available;
+  border-radius: 5px 5px 0 0;
+  border: none;
+  padding: 20px;
+}
+
+.select-container #ig-select input::-webkit-input-placeholder, .select-container #ap-select input::-webkit-input-placeholder, .select-container #ust-select input::-webkit-input-placeholder {
+  color: white;
+  opacity: 50%;
+}
+
+.select-container #ig-select input:-ms-input-placeholder, .select-container #ap-select input:-ms-input-placeholder, .select-container #ust-select input:-ms-input-placeholder {
+  color: white;
+  opacity: 50%;
+}
+
+.select-container #ig-select input::-ms-input-placeholder, .select-container #ap-select input::-ms-input-placeholder, .select-container #ust-select input::-ms-input-placeholder {
+  color: white;
+  opacity: 50%;
+}
+
+.select-container #ig-select input::placeholder, .select-container #ap-select input::placeholder, .select-container #ust-select input::placeholder {
+  color: white;
+  opacity: 50%;
+}
+
+.select-container #ig-select input {
+  background: #3282F7;
+}
+
+.select-container #ap-select input {
+  background: #68D9A4;
+}
+
+.select-container #ust-select input {
+  background: #ED6454;
+}
+
+.select-container img.input-img {
+  width: 20px;
+  position: relative;
+  right: -460px;
+  top: -35px;
+  -webkit-transition: -webkit-transform .2s ease-in-out;
+  transition: -webkit-transform .2s ease-in-out;
+  transition: transform .2s ease-in-out;
+  transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+}
+
+.select-container .ingredients-container, .select-container .appareil-container, .select-container .ust-container {
+  color: white;
+  border-radius: 0 0 5px 5px;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  padding: 20px;
+  padding-right: 60px;
+  max-height: 405px;
+  overflow: scroll;
+  position: absolute;
+  top: 285px;
+  z-index: 10;
+  width: 420px;
+}
+
+.select-container .ingredients-container {
+  background-color: #3282F7;
+}
+
+.select-container .appareil-container {
+  background-color: #68D9A4;
+}
+
+.select-container .ust-container {
+  background-color: #ED6454;
+}
+
+.select-container #ig-select[data-state="collapsed"], .select-container #ap-select[data-state="collapsed"], .select-container #ust-select[data-state="collapsed"] {
+  width: 230px;
+}
+
+.select-container #ig-select[data-state="collapsed"] input, .select-container #ap-select[data-state="collapsed"] input, .select-container #ust-select[data-state="collapsed"] input {
+  border-radius: 5px;
+}
+
+.select-container #ig-select[data-state="collapsed"] img, .select-container #ap-select[data-state="collapsed"] img, .select-container #ust-select[data-state="collapsed"] img {
+  -webkit-transform: rotate(180deg);
+          transform: rotate(180deg);
+  right: -195px;
+}
+
+.select-container #ig-select[data-state="collapsed"] .ingredients-container {
+  display: none;
+}
+
+.select-container #ap-select[data-state="collapsed"] .appareil-container {
+  display: none;
+}
+
+.select-container #ust-select[data-state="collapsed"] .ust-container {
+  display: none;
+}
+
+header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  margin: 40px 0 20px;
+}
+
+header img {
+  width: 268px;
+}
+/*# sourceMappingURL=main.css.map */

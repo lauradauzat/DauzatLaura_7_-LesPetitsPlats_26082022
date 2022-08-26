@@ -1,0 +1,60 @@
+
+    .card-img {
+        min-height: 178px;
+        background-color: $darkbg;
+        border-radius: 5px 5px  0 0 ;
+
+    }
+
+    .card-txt {
+        height: 168px; 
+        background-color: $background;
+        border-radius: 0 0 5px 5px ;
+        padding: 20px;
+     
+        & > * {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            align-content: center;
+        }
+
+        .timing-card {
+            display: flex;
+            align-items: center;
+            img {
+                margin-right: 10px;
+            }
+        }
+
+        h2, .timing-card p {
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .down-card-txt {
+            font-size: 12px;  
+            
+            & > * {
+                width: 48%; 
+            }
+
+            ul {
+                list-style: none;
+                padding-left: 0;
+            }
+
+            p {
+                width: 171px;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 6;
+                -webkit-box-orient: vertical;
+                position: absolute;
+            }
+
+          
+        }
+
+        
+    }
