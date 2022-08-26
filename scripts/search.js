@@ -21,6 +21,7 @@ let cleanUstSelectedArray = [];
 
 
 input.addEventListener('input', global_search);
+
 inputIng.addEventListener('input', function() {
     filter_select('.elIng', inputIng);
 });
@@ -93,6 +94,42 @@ function filter_select(cat, thisInput) {
    console.log(cat);
     const x = document.querySelectorAll(cat);
     let inputVal = thisInput.value
+    console.log(inputVal.length + cat + thisInput);
+
+    if (inputVal.length != 0 ) {
+
+        switch (cat) {
+            case '.elIng' :
+                igSelect.setAttribute("data-state", "open");
+                break;
+            case '.elAp' :
+                apSelect.setAttribute("data-state", "open");
+                break;
+            case '.elUst' :
+                ustSelect.setAttribute("data-state", "open");
+                break;   
+            default:
+                console.log(`Sorry, we are out of ${cat}.`);        
+        }
+    }
+
+    if (inputVal.length == 0 ) {
+
+        switch (cat) {
+            case '.elIng' :
+                igSelect.setAttribute("data-state", "collapsed");
+                break;
+            case '.elAp' :
+                apSelect.setAttribute("data-state", "collapsed");
+                break;
+            case '.elUst' :
+                ustSelect.setAttribute("data-state", "collapsed");
+                break;   
+            default:
+                console.log(`Sorry, we are out of ${cat}.`);        
+        }
+    }
+    
     inputVal = inputVal.toLowerCase();
 
     for (i = 0; i < x.length; i++) { 
@@ -121,8 +158,9 @@ function add_elements(e) {
                 cleanIngSelected.push(element);
                 cleanIngSelectedArray = Array.from(cleanIngSelected); 
                    //je crée la div a partir du dernier element de l'array
-                const ingSelectedCardDOM = recipesFactory((cleanIngSelectedArray.slice(-1))).getTagsCardDOM();
+                const ingSelectedCardDOM = recipesFactory((cleanIngSelectedArray.slice(-1))).getTagsCardDOM("ing");
                 tagsCont.appendChild(ingSelectedCardDOM); 
+                reloadTags();
             }
         })
         //console.log(cleanIngSelectedArray);
@@ -137,8 +175,9 @@ function add_elements(e) {
                 cleanApSelected.push(element);
                 cleanApSelectedArray = Array.from(cleanApSelected); 
                    //je crée la div a partir du dernier element de l'array
-                const SelectedCardDOM = recipesFactory((cleanApSelectedArray.slice(-1))).getTagsCardDOM();
+                const SelectedCardDOM = recipesFactory((cleanApSelectedArray.slice(-1))).getTagsCardDOM("ap");
                 tagsCont.appendChild(SelectedCardDOM); 
+                reloadTags();
             }
         })
     }
@@ -152,8 +191,9 @@ function add_elements(e) {
                 cleanUstSelected.push(element);
                 cleanUstSelectedArray = Array.from(cleanUstSelected); 
                    //je crée la div a partir du dernier element de l'array
-                const SelectedCardDOM = recipesFactory((cleanUstSelectedArray.slice(-1))).getTagsCardDOM();
+                const SelectedCardDOM = recipesFactory((cleanUstSelectedArray.slice(-1))).getTagsCardDOM("ust");
                 tagsCont.appendChild(SelectedCardDOM); 
+                reloadTags();
             }
         })
     }

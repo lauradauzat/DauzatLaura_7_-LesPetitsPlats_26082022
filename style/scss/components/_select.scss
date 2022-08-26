@@ -22,7 +22,7 @@
 .select-container {
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   gap: 20px;
 
 
@@ -78,8 +78,8 @@
     padding-right: 60px;
     max-height: 405px;
     overflow: scroll;
-    position: absolute;
-    top: 285px;
+    position: relative;
+    top: -23px;
     z-index: 10;
     width: 420px;
   }

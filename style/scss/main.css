@@ -115,7 +115,7 @@ main {
   display: -ms-flexbox;
   display: flex;
   width: 100%;
-  margin-top: 20px;
+  margin-top: 10px;
   gap: 20px;
 }
 
@@ -187,8 +187,8 @@ main {
   padding-right: 60px;
   max-height: 405px;
   overflow: scroll;
-  position: absolute;
-  top: 285px;
+  position: relative;
+  top: -23px;
   z-index: 10;
   width: 420px;
 }
@@ -250,5 +250,46 @@ header {
 
 header img {
   width: 268px;
+}
+
+#tags-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  width: 100%;
+  margin-top: 20px;
+}
+
+#tags-container img {
+  width: 20px;
+  padding-left: 10px;
+}
+
+#tags-container .tag {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-radius: 5px;
+  color: white;
+  padding: 10px;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+
+#tags-container .ing {
+  background-color: #3282F7;
+}
+
+#tags-container .ust {
+  background-color: #ED6454;
+}
+
+#tags-container .ap {
+  background-color: #68D9A4;
 }
 /*# sourceMappingURL=main.css.map */

@@ -105,6 +105,19 @@ cleanUstensilList.forEach((ust) => {
 
 //ing select - handle click on arrow
 igArrow.addEventListener('click', function() {
+  handleOpenCloseIng();
+});
+
+//ap select - handle click on arrow
+apArrow.addEventListener('click', function() {
+  handleOpenCloseAp();
+});
+
+ustArrow.addEventListener('click', function() {
+  handleOpenCloseUst();
+})
+
+function handleOpenCloseIng() {
   const state = igSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     igSelect.setAttribute("data-state", "open");
@@ -112,10 +125,9 @@ igArrow.addEventListener('click', function() {
     igSelect.setAttribute("data-state", "collapsed");
   }
   console.log(state);
-});
+}
 
-//ing select - handle click on arrow
-apArrow.addEventListener('click', function() {
+function handleOpenCloseAp() {
   const state = apSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     apSelect.setAttribute("data-state", "open");
@@ -123,9 +135,9 @@ apArrow.addEventListener('click', function() {
     apSelect.setAttribute("data-state", "collapsed");
   }
   console.log(state);
-});
+}
 
-ustArrow.addEventListener('click', function() {
+function handleOpenCloseUst() {
   const state = ustSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     ustSelect.setAttribute("data-state", "open");
@@ -133,4 +145,34 @@ ustArrow.addEventListener('click', function() {
     ustSelect.setAttribute("data-state", "collapsed");
   }
   console.log(state);
-})
+}
+
+
+//delete tag when clicking on cross
+
+
+let xtags = document.querySelectorAll("div.tag"); 
+
+//function to reload tags in js 
+function reloadTags() {
+  xtags = document.querySelectorAll("div.tag"); 
+  for ( tag of xtags) {
+    tag.addEventListener('click', function(e) {
+        deleteTag(e);
+    });
+  }
+  
+}
+
+
+
+function deleteTag(e) {
+  console.log('clicked' +e.target.className);
+  if (e.target.className != '') {
+   console.log('1');
+     e.target.remove();
+  } else if (e.target.className == '') {
+     console.log('2');
+     e.target.parentElement.remove();
+  }
+}

@@ -86,10 +86,13 @@ function recipesFactory(recipe) {
         return el;
     }
 
-    function getTagsCardDOM() {
+    function getTagsCardDOM(type) {
+        let img = document.createElement('img')
+        img.src = "../assets/x.png"
         const tag = document.createElement('div'); 
-        tag.setAttribute('class', 'tag'); 
+        tag.setAttribute('class', `tag ${type}`); 
         tag.textContent = recipe;
+        tag.appendChild(img); 
         return tag;
     }
 

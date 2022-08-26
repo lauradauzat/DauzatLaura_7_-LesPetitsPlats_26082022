@@ -1,0 +1,33 @@
+#tags-container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-top: 20px;
+    
+    img {
+        width: 20px;
+        padding-left: 10px;
+    } 
+
+    .tag {
+       display: flex;
+       border-radius: 5px;
+       color: white;
+       padding: 10px;  
+       width: fit-content;
+       margin-right: 10px; 
+       margin-bottom: 10px;
+    }
+
+    .ing {
+        background-color: $blue;
+    }
+    .ust {
+        background-color: $red;
+    }
+
+    .ap {
+        background-color: $green;
+    }
+
+}
