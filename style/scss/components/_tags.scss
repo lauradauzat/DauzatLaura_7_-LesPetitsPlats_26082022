@@ -17,7 +17,13 @@
        width: fit-content;
        margin-right: 10px; 
        margin-bottom: 10px;
+
+       &:hover {
+        cursor: pointer;
+       }
     }
+
+    
 
     .ing {
         background-color: $blue;

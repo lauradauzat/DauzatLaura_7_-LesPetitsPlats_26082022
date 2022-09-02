@@ -37,6 +37,7 @@ const ustArrow = document.getElementById('arrow-ust');
 const ustSelect = document.getElementById('ust-select'); 
 
 
+
 async function displayData(recipes) {
   recipes.forEach((recipe) => {
     //récupère la liste d'ingrédients pour les stocker dans une var à part et les trier plus tard
@@ -154,11 +155,13 @@ function handleOpenCloseUst() {
 let xtags = document.querySelectorAll("div.tag"); 
 
 //function to reload tags in js 
-function reloadTags() {
+function reloadTags(cat) {
   xtags = document.querySelectorAll("div.tag"); 
   for ( tag of xtags) {
+
     tag.addEventListener('click', function(e) {
         deleteTag(e);
+        global_search();
     });
   }
   
@@ -176,3 +179,5 @@ function deleteTag(e) {
      e.target.parentElement.remove();
   }
 }
+
+

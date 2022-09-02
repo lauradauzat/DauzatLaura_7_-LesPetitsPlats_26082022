@@ -281,6 +281,10 @@ header img {
   margin-bottom: 10px;
 }
 
+#tags-container .tag:hover {
+  cursor: pointer;
+}
+
 #tags-container .ing {
   background-color: #3282F7;
 }

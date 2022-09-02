@@ -11,6 +11,8 @@
         background-color: $background;
         border-radius: 0 0 5px 5px ;
         padding: 20px;
+
+       
      
         & > * {
             display: flex;
@@ -58,3 +60,5 @@
 
         
     }
+
+   // .meta {display: none}

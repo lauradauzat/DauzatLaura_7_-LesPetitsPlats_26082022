@@ -9,6 +9,7 @@ const apEls = document.querySelectorAll('.elAp');
 const ustEls = document.querySelectorAll('.elUst'); 
 const tagsCont = document.getElementById('tags-container');
 
+
 let ingSelected = [];
 let cleanIngSelected = [];
 let cleanIngSelectedArray = [];
@@ -20,7 +21,11 @@ let cleanUstSelected = [];
 let cleanUstSelectedArray = [];
 
 
-input.addEventListener('input', global_search);
+input.addEventListener('input',  function(){
+   if(input.value.length > 2) {
+    global_search();
+   }
+  });
 
 inputIng.addEventListener('input', function() {
     filter_select('.elIng', inputIng);
@@ -69,23 +74,119 @@ for (let el of ustEls) {
 function global_search() {
     const x = document.querySelectorAll('.card-txt');
 
+
+    console.log('x, ' + x.length);
     //console.log('in global search func');
-    let inputVal = document.getElementById('search').value
+    let inputVal = document.getElementById('search').value;
     inputVal = inputVal.toLowerCase();
     //console.log(inputVal);
 
+    //récupère les tags Ing sélectionné
+    let tagsIng = document.querySelectorAll(".tag.ing"); 
+    var tagIngArr = [...tagsIng];
+    const textTagsIng = tagIngArr.map( tag => tag.textContent.toLowerCase());
+
+    let tagsApp = document.querySelectorAll(".tag.ap"); 
+    var tagAppArr = [...tagsApp];
+    const textTagsApp = tagAppArr.map( tag => tag.textContent.toLowerCase());
+
+    let tagsUst = document.querySelectorAll(".tag.ust"); 
+    var tagUstArr = [...tagsUst];
+    const textTagsUst = tagUstArr.map( tag => tag.textContent.toLowerCase());
+   console.log(textTagsIng, textTagsApp, textTagsUst);
+
+
     
     for (i = 0; i < x.length; i++) { 
+        //grab meta data of the card
+        let metaApp = document.querySelectorAll(`#card${i+1} .appMeta`); 
+        let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
+        let metaUst = document.querySelectorAll(`#card${i+1} .ustMeta`); 
+        let metaUstArr = [...metaUst].map( ust => ust.textContent.toLowerCase().trimStart().trimEnd());
+        let metaIng = document.querySelectorAll(`#card${i+1} .ingMeta`);
+        let metaIngArr = [...metaIng].map( ing => ing.textContent.toLowerCase().trimStart().trimEnd());
+
+      
+          
+        //console.log(metaIngArr);
+
+        let bigsearch = false; 
+        let tagsbigsearch = false; 
+
         //console.log('card: ', x[i].parentElement);
-   
-        if (!x[i].textContent.toLowerCase().includes(inputVal)) {
-            //console.log(x[i].textContent + 'non');
-            x[i].parentElement.style.display="none";
+        
+
+        if ( x[i].textContent.toLowerCase().includes(inputVal) ) {
+            bigsearch = true;
+           
         }
         else {
-            //console.log(x[i].textContent + 'oui');
-            x[i].parentElement.style.display="block";                 
+            bigsearch = false;               
         }
+
+       
+
+       // console.log('bigsearch' + bigsearch);
+
+
+        // const containsTag =  (currentTag) =>  x[i].textContent.toLowerCase().includes(currentTag);
+
+        // if (textTags.every(containsTag)) {
+        //     tagsbigsearch = true; 
+        //     //console.log('tagsbigsearch' + x[i].textContent );
+            
+        // }
+
+         
+        //   const containsIngTag =  (currentTag) =>  metaIngArr.includes(currentTag);
+
+        // if (textTagsIng.every(containsIngTag)) {
+        //     console.log('ingBool' + ingBool );
+        //     //tagsbigsearch = true; 
+        //     //console.log('tagsbigsearch' + x[i].textContent );
+            
+        // }
+        //console.log(metaIngArr, metaAppArr, metaUstArr); 
+    
+        // let containsAllIngTags = metaIngArr.every(function() {
+        //     return metaIngArr.includes(textTagsIng);
+        // });
+
+        //  let containsAllAppTags = metaAppArr.every(function() {
+        //     return textTagsApp.includes(metaAppArr);
+        // });
+
+        //  let containsAllUstTags = metaUstArr.every(function() {
+        //     return textTagsUst.includes(metaUstArr);
+        // });
+  
+
+        let checker = (arr, target) => target.every(v => arr.includes(v));
+
+        //console.log(x[i].textContent);
+        // console.log(checker(metaIngArr, textTagsIng));
+        // console.log(checker(metaAppArr, textTagsApp));
+        // console.log(checker(metaUstArr, textTagsUst));
+
+        if (checker(metaIngArr, textTagsIng) && checker(metaAppArr, textTagsApp) &&checker(metaUstArr, textTagsUst) ) {
+            tagsbigsearch = true; 
+            console.log(tagsbigsearch);
+        }
+
+
+   
+       console.log(bigsearch + '&&' + tagsbigsearch) ;
+       if (bigsearch && tagsbigsearch) {
+        x[i].parentElement.style.display="block";
+       } else {
+        x[i].parentElement.style.display="none";
+       }
+    
+
+
+
+
+
     }
 }
 
@@ -160,7 +261,8 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const ingSelectedCardDOM = recipesFactory((cleanIngSelectedArray.slice(-1))).getTagsCardDOM("ing");
                 tagsCont.appendChild(ingSelectedCardDOM); 
-                reloadTags();
+                reloadTags(e.target.className);
+                global_search();
             }
         })
         //console.log(cleanIngSelectedArray);
@@ -177,7 +279,8 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const SelectedCardDOM = recipesFactory((cleanApSelectedArray.slice(-1))).getTagsCardDOM("ap");
                 tagsCont.appendChild(SelectedCardDOM); 
-                reloadTags();
+                reloadTags(e.target.className);
+                global_search();
             }
         })
     }
@@ -193,7 +296,8 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const SelectedCardDOM = recipesFactory((cleanUstSelectedArray.slice(-1))).getTagsCardDOM("ust");
                 tagsCont.appendChild(SelectedCardDOM); 
-                reloadTags();
+                reloadTags(e.target.className );
+                global_search();
             }
         })
     }
@@ -201,3 +305,4 @@ function add_elements(e) {
 
 
 }
+

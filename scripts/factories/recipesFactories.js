@@ -1,7 +1,7 @@
 function recipesFactory(recipe) {
     function getRecipeCardDOM() {
         const card = document.createElement( 'div' );
-        card.setAttribute('id',`${recipe.id}`);
+        card.setAttribute('id',`card${recipe.id}`);
         card.setAttribute('div', "card");
         const cardImg = document.createElement('div'); 
         cardImg.setAttribute('class', 'card-img'); 
@@ -58,6 +58,27 @@ function recipesFactory(recipe) {
             </p>
         `; 
         downCard.appendChild(descDiv); 
+
+        const meta = document.createElement('div'); 
+        meta.setAttribute('class', 'meta'); 
+
+        const ulmeta = document.createElement('ul'); 
+        meta.appendChild(ulmeta); 
+
+        
+        recipe.ingredients.forEach((i) => {
+            ulmeta.innerHTML += `<li class="ingMeta ${recipe.id}">  ${i.ingredient} </li>`;
+        });   
+
+        
+        ulmeta.innerHTML += `<li class="appMeta">  ${recipe.appliance} </li>`;
+
+        recipe.ustensils.forEach((i) => {
+            ulmeta.innerHTML += `<li class="ustMeta">  ${i} </li>`;
+        });   
+
+
+        card.appendChild(meta);
 
 
 
