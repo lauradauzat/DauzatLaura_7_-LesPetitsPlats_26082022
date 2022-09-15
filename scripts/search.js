@@ -27,6 +27,13 @@ let cvuArr = [];
 let cviArr = []; 
 
 
+function myMapToLowerCaseAndTrim(oldArray, newArray) {
+    
+    for ( element of oldArray) {
+        //console.log(element);
+        newArray.push(element.textContent.toLowerCase().trimStart().trimEnd())
+    }
+}
 
 
 input.addEventListener('input',  function(){
@@ -42,7 +49,7 @@ inputIng.addEventListener('input', function() {
     filter_select('.elIng', inputIng);
 });
 inputAp.addEventListener('input', function() {
-    console.log('coucouuuuu');
+   // console.log('coucouuuuu');
     filter_select('.elAp', inputAp );
 });
 inputUst.addEventListener('input', function() {
@@ -75,14 +82,14 @@ function loadEventListenerToAddTagsOnClick() {
     
     for ( let el of apEls ) {
         el.addEventListener('click', function(e) {
-            console.log('clicked');
+           // console.log('clicked');
             add_elements(e);
          });
     }
     
     for (let el of ustEls) {
         el.addEventListener('click', function(e) {
-            console.log('clicked');
+           // console.log('clicked');
             add_elements(e);
          });
     }
@@ -105,7 +112,7 @@ function global_search() {
 
 
 
-    console.log('x, ' + x.length);
+    //console.log('x, ' + x.length);
     //console.log('in global search func');
     let inputVal = document.getElementById('search').value;
     inputVal = inputVal.toLowerCase();
@@ -113,32 +120,48 @@ function global_search() {
 
     //récupère les tags Ing sélectionné
     let tagsIng = document.querySelectorAll(".tag.ing"); 
-    var tagIngArr = [...tagsIng];
-    const textTagsIng = tagIngArr.map( tag => tag.textContent.toLowerCase());
+    let tagIngArr = [...tagsIng];
+    let textTagsIng = [];
+    myMapToLowerCaseAndTrim(tagIngArr, textTagsIng);
+
 
     let tagsApp = document.querySelectorAll(".tag.ap"); 
-    var tagAppArr = [...tagsApp];
-    const textTagsApp = tagAppArr.map( tag => tag.textContent.toLowerCase());
+    let tagAppArr = [...tagsApp];
+    let textTagsApp = [];
+    myMapToLowerCaseAndTrim(tagAppArr, textTagsApp); 
+    //const textTagsApp = tagAppArr.map( tag => tag.textContent.toLowerCase());
 
     let tagsUst = document.querySelectorAll(".tag.ust"); 
-    var tagUstArr = [...tagsUst];
-    const textTagsUst = tagUstArr.map( tag => tag.textContent.toLowerCase());
-   console.log(textTagsIng, textTagsApp, textTagsUst);
+    let  tagUstArr = [...tagsUst];
+    let textTagsUst = []; 
+    myMapToLowerCaseAndTrim(tagUstArr, textTagsUst); 
+    //const textTagsUst = tagUstArr.map( tag => tag.textContent.toLowerCase());
+    
+   //console.log('--------------------' + textTagsIng, textTagsApp, textTagsUst);
 
 
     
     for (i = 0; i < x.length; i++) {  // montableau.foreach 
         //grab meta data of the card
         let metaApp = document.querySelectorAll(`#card${i+1} .appMeta`); 
-        let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
+        //let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
+        metaApp = [...metaApp]; 
+        let metaAppArr = []; 
+        myMapToLowerCaseAndTrim(metaApp, metaAppArr); 
         let metaUst = document.querySelectorAll(`#card${i+1} .ustMeta`); 
-        let metaUstArr = [...metaUst].map( ust => ust.textContent.toLowerCase().trimStart().trimEnd());
+        metaUst = [...metaUst];
+        let metaUstArr = []; 
+        myMapToLowerCaseAndTrim(metaUst, metaUstArr);
+        //let metaUstArr = [...metaUst].map( ust => ust.textContent.toLowerCase().trimStart().trimEnd());
         let metaIng = document.querySelectorAll(`#card${i+1} .ingMeta`);
-        let metaIngArr = [...metaIng].map( ing => ing.textContent.toLowerCase().trimStart().trimEnd());
+        metaIng = [...metaIng];
+        let metaIngArr = []; 
+        myMapToLowerCaseAndTrim(metaIng, metaIngArr);
+        //let metaIngArr = [...metaIng].map( ing => ing.textContent.toLowerCase().trimStart().trimEnd());
 
       
           
-        //console.log(metaIngArr);
+        //console.log('==============' + metaIngArr + metaUstArr + metaAppArr);
 
         let bigsearch = false; 
         let tagsbigsearch = false; 
@@ -154,41 +177,6 @@ function global_search() {
             bigsearch = false;               
         }
 
-       
-
-       // console.log('bigsearch' + bigsearch);
-
-
-        // const containsTag =  (currentTag) =>  x[i].textContent.toLowerCase().includes(currentTag);
-
-        // if (textTags.every(containsTag)) {
-        //     tagsbigsearch = true; 
-        //     //console.log('tagsbigsearch' + x[i].textContent );
-            
-        // }
-
-         
-        //   const containsIngTag =  (currentTag) =>  metaIngArr.includes(currentTag);
-
-        // if (textTagsIng.every(containsIngTag)) {
-        //     console.log('ingBool' + ingBool );
-        //     //tagsbigsearch = true; 
-        //     //console.log('tagsbigsearch' + x[i].textContent );
-            
-        // }
-        //console.log(metaIngArr, metaAppArr, metaUstArr); 
-    
-        // let containsAllIngTags = metaIngArr.every(function() {
-        //     return metaIngArr.includes(textTagsIng);
-        // });
-
-        //  let containsAllAppTags = metaAppArr.every(function() {
-        //     return textTagsApp.includes(metaAppArr);
-        // });
-
-        //  let containsAllUstTags = metaUstArr.every(function() {
-        //     return textTagsUst.includes(metaUstArr);
-        // });
   
 
         let checker = (arr, target) => target.every(v => arr.includes(v));
@@ -200,12 +188,12 @@ function global_search() {
 
         if (checker(metaIngArr, textTagsIng) && checker(metaAppArr, textTagsApp) &&checker(metaUstArr, textTagsUst) ) {
             tagsbigsearch = true; 
-            console.log(tagsbigsearch);
+            //console.log(tagsbigsearch);
         }
 
 
    
-       console.log(bigsearch + '&&' + tagsbigsearch) ;
+       //console.log(bigsearch + '&&' + tagsbigsearch) ;
        if (bigsearch && tagsbigsearch) {
         x[i].parentElement.classList.remove("hidden");
        } else {
@@ -228,10 +216,10 @@ function global_search() {
 
 function filter_select(cat, thisInput) {
 
-   console.log(cat);
+   //console.log(cat);
     const x = document.querySelectorAll(cat);
     let inputVal = thisInput.value
-    console.log(inputVal.length + cat + thisInput);
+    //console.log(inputVal.length + cat + thisInput);
 
     if (inputVal.length != 0 ) {
 
@@ -286,11 +274,13 @@ function filter_select(cat, thisInput) {
 
 
 function add_elements(e) {
-    console.log(e.target.className); 
+   // console.log(e.target.className); 
     if(e.target.className == "elIng" ) {
         ingSelected.push(e.target.textContent);
-        console.log('true');
-        ingSelected.forEach((element) => {
+        //console.log('true');
+
+        for ( const element of ingSelected) {
+    
             if (!cleanIngSelected.includes(element)) {
                 cleanIngSelected.push(element);
                 cleanIngSelectedArray = Array.from(cleanIngSelected); 
@@ -301,15 +291,14 @@ function add_elements(e) {
                 
                 global_search();
             }
-        })
+        }
         //console.log(cleanIngSelectedArray);
     }
 
     else if (e.target.className == "elAp") {
         apSelected.push(e.target.textContent);
-        console.log('true');
-        apSelected.forEach((element) => {
-
+        //console.log('true');
+        for ( const element of apSelected) {
             if (!cleanApSelected.includes(element)) {
                 cleanApSelected.push(element);
                 cleanApSelectedArray = Array.from(cleanApSelected); 
@@ -319,13 +308,14 @@ function add_elements(e) {
                 //deleteTags(e.target.className);
                 global_search();
             }
-        })
+        }
+
     }
 
     else if (e.target.className == "elUst") {
         ustSelected.push(e.target.textContent);
         console.log('true');
-        ustSelected.forEach((element) => {
+        for ( const element of ustSelected ) {
 
             if (!cleanUstSelected.includes(element)) {
                 cleanUstSelected.push(element);
@@ -336,7 +326,7 @@ function add_elements(e) {
                 //deleteTags(e.target.className);
                 global_search();
             }
-        })
+        }
     }
 
     grabCurrentTagsAndListenForDelete();
@@ -360,9 +350,17 @@ function reloadCurrentTagsAvailable() {
         const AppMetaOnPageArr = [...AppMetaOnPage]; 
         const UstMetaOnPageArr = [...UstMetaOnPage]; 
 
-        const IngMetaOnPageArrMapped = IngMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
-        const AppMetaOnPageArrMapped = AppMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
-        const UstMetaOnPageArrMapped = UstMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        // const IngMetaOnPageArrMapped = IngMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        // const AppMetaOnPageArrMapped = AppMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        // const UstMetaOnPageArrMapped = UstMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+
+        const IngMetaOnPageArrMapped = [];
+        const AppMetaOnPageArrMapped = [];
+        const UstMetaOnPageArrMapped = []; 
+
+        myMapToLowerCaseAndTrim(IngMetaOnPageArr, IngMetaOnPageArrMapped);
+        myMapToLowerCaseAndTrim(AppMetaOnPageArr, AppMetaOnPageArrMapped);
+        myMapToLowerCaseAndTrim(UstMetaOnPageArr, UstMetaOnPageArrMapped);
 
 
         const readyToUseIngMetaOnPage =  Array.from(new Set(IngMetaOnPageArrMapped));

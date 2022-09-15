@@ -42,11 +42,12 @@ const ustSelect = document.getElementById('ust-select');
 
 
 async function displayData(recipes) {
-  recipes.forEach((recipe) => {
-    //récupère la liste d'ingrédients pour les stocker dans une var à part et les trier plus tard
-    recipe.ingredients.forEach((ingredient) => {
+
+  const recipesArr = [...recipes]
+  for ( let recipe of recipesArr) {
+    for (ingredient of recipe.ingredients) {
       IngredientsList.push(ingredient.ingredient); 
-    })
+    }
 
     applianceList.push(recipe.appliance); 
     UstensilList.push(...recipe.ustensils);
@@ -54,8 +55,7 @@ async function displayData(recipes) {
     const recipeModel = recipesFactory(recipe); 
     const recipeCardDOM = recipeModel.getRecipeCardDOM(); 
     cardContainer.appendChild(recipeCardDOM); 
-   
-  })
+  }
 }
 
 
@@ -77,10 +77,11 @@ function createIngredientList() {
 }
 
 //print divs for Ingredients Select
-cleanIngListArray.forEach((ing) => {
+
+for (const ing of cleanIngListArray) {
   const ingSelectCardDOM = recipesFactory(ing).getingSelectCardDOM();
   ingSelectContainer.appendChild(ingSelectCardDOM); 
-})
+}
 
 
 function createApplianceList() {
@@ -88,10 +89,11 @@ function createApplianceList() {
  cleanApplianceListArray = Array.from(cleanApplianceList); 
 }
 
-cleanApplianceListArray.forEach((app) => {
+for (const app of cleanApplianceListArray) {
   const appSelectCardDOM = recipesFactory(app).getAppSelectCardDOM();
   apSelectContainer.appendChild(appSelectCardDOM); 
-})
+}
+
 
 function createUstensilList()  {
   cleanUstensilList = [new Set(UstensilList)]; 
@@ -99,10 +101,10 @@ function createUstensilList()  {
   //console.log(cleanUstensilList);
 }
 
-cleanUstensilList.forEach((ust) => {
+for (const ust of cleanUstensilList) {
   const ustSelectDOM = recipesFactory(ust).getUstSelectCardDOM(); 
   ustSelectContainer.appendChild(ustSelectDOM)
-})
+}
 
 
 
