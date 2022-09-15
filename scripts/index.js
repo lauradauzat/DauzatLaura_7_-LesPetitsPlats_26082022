@@ -38,6 +38,9 @@ const ustSelect = document.getElementById('ust-select');
 
 
 
+
+
+
 async function displayData(recipes) {
   recipes.forEach((recipe) => {
     //récupère la liste d'ingrédients pour les stocker dans une var à part et les trier plus tard
@@ -93,7 +96,7 @@ cleanApplianceListArray.forEach((app) => {
 function createUstensilList()  {
   cleanUstensilList = [new Set(UstensilList)]; 
   cleanUstensilList = cleanUstensilList[0];
-  console.log(cleanUstensilList);
+  //console.log(cleanUstensilList);
 }
 
 cleanUstensilList.forEach((ust) => {
@@ -149,35 +152,29 @@ function handleOpenCloseUst() {
 }
 
 
-//delete tag when clicking on cross
-
-
-let xtags = document.querySelectorAll("div.tag"); 
-
-//function to reload tags in js 
-function reloadTags(cat) {
-  xtags = document.querySelectorAll("div.tag"); 
-  for ( tag of xtags) {
-
-    tag.addEventListener('click', function(e) {
-        deleteTag(e);
-        global_search();
-    });
-  }
-  
-}
 
 
 
-function deleteTag(e) {
-  console.log('clicked' +e.target.className);
-  if (e.target.className != '') {
-   console.log('1');
-     e.target.remove();
-  } else if (e.target.className == '') {
-     console.log('2');
-     e.target.parentElement.remove();
+function grabCurrentTagsAndListenForDelete(){
+  let currentTags = document.querySelectorAll("div.tag"); 
+
+  for (const tag of currentTags) {
+      tag.addEventListener('click', function(e) {
+        //logic to act depeding on if the click is made on the x img or directly on the div
+        if (e.target.className != '') {
+          console.log('1');
+            e.target.remove();
+         } else if (e.target.className == '') {
+            console.log('2');
+            e.target.parentElement.remove();
+         }
+         global_search();
+         reloadCurrentTagsAvailable();
+
+      } )
   }
 }
+
+
 
 

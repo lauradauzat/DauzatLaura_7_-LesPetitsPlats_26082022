@@ -3,12 +3,12 @@ const input = document.getElementById('search');
 const inputIng = document.getElementById('ingSearch'); 
 const inputAp = document.getElementById('apSearch'); 
 const inputUst = document.getElementById('ustSearch');
-const allEls = document.querySelectorAll('els');
-const ingEls = document.querySelectorAll('.elIng'); 
-const apEls = document.querySelectorAll('.elAp');
-const ustEls = document.querySelectorAll('.elUst'); 
 const tagsCont = document.getElementById('tags-container');
 
+let allEls = document.querySelectorAll('els');
+let ingEls = document.querySelectorAll('.elIng'); 
+let apEls = document.querySelectorAll('.elAp');
+let ustEls = document.querySelectorAll('.elUst'); 
 
 let ingSelected = [];
 let cleanIngSelected = [];
@@ -21,8 +21,19 @@ let cleanUstSelected = [];
 let cleanUstSelectedArray = [];
 
 
+//currently visible ap/ust/ing... Array 
+let cvaArr = [];
+let cvuArr = [];
+let cviArr = []; 
+
+
+
+
 input.addEventListener('input',  function(){
    if(input.value.length > 2) {
+    global_search();
+   }
+   if(input.value.length == 0) {
     global_search();
    }
   });
@@ -47,25 +58,38 @@ inputUst.addEventListener('input', function() {
 //     });
 // }
 
-for ( let el of ingEls) {
-    el.addEventListener('click', function(e) {
-       add_elements(e);
-    });
+ 
+
+
+
+function loadEventListenerToAddTagsOnClick() {
+     ingEls = document.querySelectorAll('.elIng'); 
+     apEls = document.querySelectorAll('.elAp');
+     ustEls = document.querySelectorAll('.elUst'); 
+
+    for ( let el of ingEls) {
+        el.addEventListener('click', function(e) {
+           add_elements(e);
+        });
+    }
+    
+    for ( let el of apEls ) {
+        el.addEventListener('click', function(e) {
+            console.log('clicked');
+            add_elements(e);
+         });
+    }
+    
+    for (let el of ustEls) {
+        el.addEventListener('click', function(e) {
+            console.log('clicked');
+            add_elements(e);
+         });
+    }
+
 }
 
-for ( let el of apEls ) {
-    el.addEventListener('click', function(e) {
-        console.log('clicked');
-        add_elements(e);
-     });
-}
-
-for (let el of ustEls) {
-    el.addEventListener('click', function(e) {
-        console.log('clicked');
-        add_elements(e);
-     });
-}
+loadEventListenerToAddTagsOnClick();
 
 
 
@@ -73,6 +97,12 @@ for (let el of ustEls) {
 
 function global_search() {
     const x = document.querySelectorAll('.card-txt');
+
+    // let allEls = document.querySelectorAll('els');
+    // let ingEls = document.querySelectorAll('.elIng'); 
+    // let apEls = document.querySelectorAll('.elAp');
+    // let ustEls = document.querySelectorAll('.elUst'); 
+
 
 
     console.log('x, ' + x.length);
@@ -97,7 +127,7 @@ function global_search() {
 
 
     
-    for (i = 0; i < x.length; i++) { 
+    for (i = 0; i < x.length; i++) {  // montableau.foreach 
         //grab meta data of the card
         let metaApp = document.querySelectorAll(`#card${i+1} .appMeta`); 
         let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
@@ -177,10 +207,11 @@ function global_search() {
    
        console.log(bigsearch + '&&' + tagsbigsearch) ;
        if (bigsearch && tagsbigsearch) {
-        x[i].parentElement.style.display="block";
+        x[i].parentElement.classList.remove("hidden");
        } else {
-        x[i].parentElement.style.display="none";
+        x[i].parentElement.classList.add("hidden");
        }
+
     
 
 
@@ -188,6 +219,11 @@ function global_search() {
 
 
     }
+
+    reloadCurrentTagsAvailable();
+    grabCurrentTagsAndListenForDelete();
+    
+
 }
 
 function filter_select(cat, thisInput) {
@@ -261,7 +297,8 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const ingSelectedCardDOM = recipesFactory((cleanIngSelectedArray.slice(-1))).getTagsCardDOM("ing");
                 tagsCont.appendChild(ingSelectedCardDOM); 
-                reloadTags(e.target.className);
+                //deleteTags(e.target.className);
+                
                 global_search();
             }
         })
@@ -279,7 +316,7 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const SelectedCardDOM = recipesFactory((cleanApSelectedArray.slice(-1))).getTagsCardDOM("ap");
                 tagsCont.appendChild(SelectedCardDOM); 
-                reloadTags(e.target.className);
+                //deleteTags(e.target.className);
                 global_search();
             }
         })
@@ -296,13 +333,80 @@ function add_elements(e) {
                    //je crée la div a partir du dernier element de l'array
                 const SelectedCardDOM = recipesFactory((cleanUstSelectedArray.slice(-1))).getTagsCardDOM("ust");
                 tagsCont.appendChild(SelectedCardDOM); 
-                reloadTags(e.target.className );
+                //deleteTags(e.target.className);
                 global_search();
             }
         })
     }
 
-
-
+    grabCurrentTagsAndListenForDelete();
+    //reloadCurrentTagsAvailable();
+    loadEventListenerToAddTagsOnClick();
+    
 }
 
+
+
+function reloadCurrentTagsAvailable() {
+    
+    console.log('reload coucou');
+
+    //grab all elements présent on the page
+        const IngMetaOnPage = document.querySelectorAll(".card:not(.hidden) .ingMeta");
+        const AppMetaOnPage = document.querySelectorAll(".card:not(.hidden) .appMeta");
+        const UstMetaOnPage = document.querySelectorAll(".card:not(.hidden) .ustMeta");
+
+        const IngMetaOnPageArr = [...IngMetaOnPage]; 
+        const AppMetaOnPageArr = [...AppMetaOnPage]; 
+        const UstMetaOnPageArr = [...UstMetaOnPage]; 
+
+        const IngMetaOnPageArrMapped = IngMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        const AppMetaOnPageArrMapped = AppMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        const UstMetaOnPageArrMapped = UstMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+
+
+        const readyToUseIngMetaOnPage =  Array.from(new Set(IngMetaOnPageArrMapped));
+        const readyToUseAppMetaOnPage =  Array.from(new Set(AppMetaOnPageArrMapped));
+        const readyToUseUstMetaOnPage =  Array.from(new Set(UstMetaOnPageArrMapped));
+
+
+        console.log(readyToUseIngMetaOnPage , readyToUseAppMetaOnPage, readyToUseUstMetaOnPage);
+
+
+    //prendre la liste des tags dans les selects 
+    // je boucle sur les li 
+    for( li of ingEls) {
+        let liEl = li.textContent.toLowerCase()
+            // si la li est PAS  dans la liste des éléments sur la page
+        if (!readyToUseIngMetaOnPage.includes(liEl) ) {
+              //display none
+            li.classList.add("hidden");
+        } else if (readyToUseIngMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
+            li.classList.remove("hidden");
+        }
+    }
+
+    for( li of apEls) {
+        let liEl = li.textContent.toLowerCase()
+            // si la li est PAS  dans la liste des éléments sur la page
+        if (!readyToUseAppMetaOnPage.includes(liEl) ) {
+              //display none
+            li.classList.add("hidden");
+        } else if (readyToUseAppMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
+            li.classList.remove("hidden");
+        }
+    }
+
+    for( li of ustEls) {
+        let liEl = li.textContent.toLowerCase()
+            // si la li est PAS  dans la liste des éléments sur la page
+        if (!readyToUseUstMetaOnPage.includes(liEl) ) {
+              //display none
+            li.classList.add("hidden");
+        }  else if (readyToUseUstMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
+            li.classList.remove("hidden");
+        }
+    }
+    
+}
+  

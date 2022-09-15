@@ -14,6 +14,10 @@ main {
   gap: 30px;
 }
 
+.hidden {
+  display: none;
+}
+
 .card-img {
   min-height: 178px;
   background-color: #C7BEBE;
@@ -79,6 +83,10 @@ main {
   -webkit-line-clamp: 6;
   -webkit-box-orient: vertical;
   position: absolute;
+}
+
+.meta {
+  display: none;
 }
 
 .search-container {
@@ -173,6 +181,7 @@ main {
   transition: -webkit-transform .2s ease-in-out;
   transition: transform .2s ease-in-out;
   transition: transform .2s ease-in-out, -webkit-transform .2s ease-in-out;
+  cursor: pointer;
 }
 
 .select-container .ingredients-container, .select-container .appareil-container, .select-container .ust-container {
@@ -191,6 +200,10 @@ main {
   top: -23px;
   z-index: 10;
   width: 420px;
+}
+
+.select-container .ingredients-container .elIng, .select-container .ingredients-container elUst, .select-container .ingredients-container elAp, .select-container .appareil-container .elIng, .select-container .appareil-container elUst, .select-container .appareil-container elAp, .select-container .ust-container .elIng, .select-container .ust-container elUst, .select-container .ust-container elAp {
+  cursor: pointer;
 }
 
 .select-container .ingredients-container {

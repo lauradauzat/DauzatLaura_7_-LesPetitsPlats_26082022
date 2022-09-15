@@ -2,7 +2,7 @@ function recipesFactory(recipe) {
     function getRecipeCardDOM() {
         const card = document.createElement( 'div' );
         card.setAttribute('id',`card${recipe.id}`);
-        card.setAttribute('div', "card");
+        card.setAttribute('class', "card");
         const cardImg = document.createElement('div'); 
         cardImg.setAttribute('class', 'card-img'); 
         card.appendChild(cardImg); 
@@ -67,7 +67,7 @@ function recipesFactory(recipe) {
 
         
         recipe.ingredients.forEach((i) => {
-            ulmeta.innerHTML += `<li class="ingMeta ${recipe.id}">  ${i.ingredient} </li>`;
+            ulmeta.innerHTML += `<li class="ingMeta">   ${i.ingredient} </li>`;
         });   
 
         
@@ -88,14 +88,14 @@ function recipesFactory(recipe) {
 
     function getingSelectCardDOM(){
         const el = document.createElement('div'); 
-        el.setAttribute('class', 'elIng')
-        el.innerHTML = recipe
+        el.setAttribute('class', 'elIng');
+        el.innerHTML = recipe;
         return el; 
     }
 
     function getAppSelectCardDOM(){
         const el = document.createElement('div'); 
-        el.setAttribute('class', 'elAp')
+        el.setAttribute('class', 'elAp');
         el.innerHTML = recipe
         return el; 
     }
