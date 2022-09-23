@@ -37,8 +37,21 @@ const ustArrow = document.getElementById('arrow-ust');
 const ustSelect = document.getElementById('ust-select'); 
 
 
+init(); 
 
+//ing select - handle click on arrow
+igArrow.addEventListener('click', function() {
+  handleOpenCloseIng();
+});
 
+//ap select - handle click on arrow
+apArrow.addEventListener('click', function() {
+  handleOpenCloseAp();
+});
+
+ustArrow.addEventListener('click', function() {
+  handleOpenCloseUst();
+})
 
 
 async function displayData(recipes) {
@@ -58,8 +71,6 @@ async function displayData(recipes) {
   })
 }
 
-
-
 function init() {
   displayData(recipes); 
   createIngredientList();
@@ -67,59 +78,37 @@ function init() {
   createUstensilList();
 }
 
-init(); 
-
-
 function createIngredientList() {
   cleanIngList = [...new Set(IngredientsList)];
-  cleanIngListArray = Array.from(cleanIngList)
+  cleanIngListArray = Array.from(cleanIngList);
+  //print divs for Ingredients Select
+  cleanIngListArray.forEach((ing) => {
+    const ingSelectCardDOM = recipesFactory(ing).getingSelectCardDOM();
+    ingSelectContainer.appendChild(ingSelectCardDOM); 
+  })
+
 
 }
-
-//print divs for Ingredients Select
-cleanIngListArray.forEach((ing) => {
-  const ingSelectCardDOM = recipesFactory(ing).getingSelectCardDOM();
-  ingSelectContainer.appendChild(ingSelectCardDOM); 
-})
-
 
 function createApplianceList() {
  cleanApplianceList = [...new Set(applianceList)];
  cleanApplianceListArray = Array.from(cleanApplianceList); 
-}
 
-cleanApplianceListArray.forEach((app) => {
-  const appSelectCardDOM = recipesFactory(app).getAppSelectCardDOM();
-  apSelectContainer.appendChild(appSelectCardDOM); 
-})
+  cleanApplianceListArray.forEach((app) => {
+    const appSelectCardDOM = recipesFactory(app).getAppSelectCardDOM();
+    apSelectContainer.appendChild(appSelectCardDOM); 
+  })
+}
 
 function createUstensilList()  {
   cleanUstensilList = [new Set(UstensilList)]; 
   cleanUstensilList = cleanUstensilList[0];
   //console.log(cleanUstensilList);
+  cleanUstensilList.forEach((ust) => {
+    const ustSelectDOM = recipesFactory(ust).getUstSelectCardDOM(); 
+    ustSelectContainer.appendChild(ustSelectDOM)
+  })
 }
-
-cleanUstensilList.forEach((ust) => {
-  const ustSelectDOM = recipesFactory(ust).getUstSelectCardDOM(); 
-  ustSelectContainer.appendChild(ustSelectDOM)
-})
-
-
-
-
-//ing select - handle click on arrow
-igArrow.addEventListener('click', function() {
-  handleOpenCloseIng();
-});
-
-//ap select - handle click on arrow
-apArrow.addEventListener('click', function() {
-  handleOpenCloseAp();
-});
-
-ustArrow.addEventListener('click', function() {
-  handleOpenCloseUst();
-})
 
 function handleOpenCloseIng() {
   const state = igSelect.getAttribute('data-state');
@@ -150,10 +139,6 @@ function handleOpenCloseUst() {
   }
   console.log(state);
 }
-
-
-
-
 
 function grabCurrentTagsAndListenForDelete(){
   let currentTags = document.querySelectorAll("div.tag"); 

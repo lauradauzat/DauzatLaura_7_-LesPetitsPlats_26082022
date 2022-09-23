@@ -20,14 +20,10 @@ let ustSelected = [];
 let cleanUstSelected = [];
 let cleanUstSelectedArray = [];
 
-
 //currently visible ap/ust/ing... Array 
 let cvaArr = [];
 let cvuArr = [];
 let cviArr = []; 
-
-
-
 
 input.addEventListener('input',  function(){
    if(input.value.length > 2) {
@@ -49,18 +45,7 @@ inputUst.addEventListener('input', function() {
     filter_select('.elUst', inputUst);
 });
 
-//je n'arrive pas a catch all els  pour eviter de me repéter
-
-// for ( let el of allEls) {
-//     el.addEventListener('click', function(e) {
-//         console.log('clickedallels');
-//        add_elements(e);
-//     });
-// }
-
- 
-
-
+loadEventListenerToAddTagsOnClick();
 
 function loadEventListenerToAddTagsOnClick() {
      ingEls = document.querySelectorAll('.elIng'); 
@@ -89,23 +74,10 @@ function loadEventListenerToAddTagsOnClick() {
 
 }
 
-loadEventListenerToAddTagsOnClick();
-
-
-
-
-
 function global_search() {
-    const x = document.querySelectorAll('.card-txt');
+    const cards = document.querySelectorAll('.card-txt');
 
-    // let allEls = document.querySelectorAll('els');
-    // let ingEls = document.querySelectorAll('.elIng'); 
-    // let apEls = document.querySelectorAll('.elAp');
-    // let ustEls = document.querySelectorAll('.elUst'); 
-
-
-
-    console.log('x, ' + x.length);
+    console.log('x, ' + cards.length);
     //console.log('in global search func');
     let inputVal = document.getElementById('search').value;
     inputVal = inputVal.toLowerCase();
@@ -125,100 +97,47 @@ function global_search() {
     const textTagsUst = tagUstArr.map( tag => tag.textContent.toLowerCase());
    console.log(textTagsIng, textTagsApp, textTagsUst);
 
+    cards.forEach(function (card, i) {
+            //grab meta data of the card
+            let metaApp = document.querySelectorAll(`#card${i+1} .appMeta`); 
+            let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
+            let metaUst = document.querySelectorAll(`#card${i+1} .ustMeta`); 
+            let metaUstArr = [...metaUst].map( ust => ust.textContent.toLowerCase().trimStart().trimEnd());
+            let metaIng = document.querySelectorAll(`#card${i+1} .ingMeta`);
+            let metaIngArr = [...metaIng].map( ing => ing.textContent.toLowerCase().trimStart().trimEnd());
 
-    
-    for (i = 0; i < x.length; i++) {  // montableau.foreach 
-        //grab meta data of the card
-        let metaApp = document.querySelectorAll(`#card${i+1} .appMeta`); 
-        let metaAppArr = [...metaApp].map( app => app.textContent.toLowerCase().trimStart().trimEnd());
-        let metaUst = document.querySelectorAll(`#card${i+1} .ustMeta`); 
-        let metaUstArr = [...metaUst].map( ust => ust.textContent.toLowerCase().trimStart().trimEnd());
-        let metaIng = document.querySelectorAll(`#card${i+1} .ingMeta`);
-        let metaIngArr = [...metaIng].map( ing => ing.textContent.toLowerCase().trimStart().trimEnd());
-
-      
-          
-        //console.log(metaIngArr);
-
-        let bigsearch = false; 
-        let tagsbigsearch = false; 
-
-        //console.log('card: ', x[i].parentElement);
-        
-
-        if ( x[i].textContent.toLowerCase().includes(inputVal) ) {
-            bigsearch = true;
-           
-        }
-        else {
-            bigsearch = false;               
-        }
-
-       
-
-       // console.log('bigsearch' + bigsearch);
+            //set validation value to false
+            let bigsearch = false; 
+            let tagsbigsearch = false; 
 
 
-        // const containsTag =  (currentTag) =>  x[i].textContent.toLowerCase().includes(currentTag);
-
-        // if (textTags.every(containsTag)) {
-        //     tagsbigsearch = true; 
-        //     //console.log('tagsbigsearch' + x[i].textContent );
+            if ( card.textContent.toLowerCase().includes(inputVal) ) {
+                bigsearch = true;
             
-        // }
+            }
+            else {
+                bigsearch = false;               
+            }
 
-         
-        //   const containsIngTag =  (currentTag) =>  metaIngArr.includes(currentTag);
-
-        // if (textTagsIng.every(containsIngTag)) {
-        //     console.log('ingBool' + ingBool );
-        //     //tagsbigsearch = true; 
-        //     //console.log('tagsbigsearch' + x[i].textContent );
-            
-        // }
-        //console.log(metaIngArr, metaAppArr, metaUstArr); 
+            //est ce que tous les tags sélectionné sont présent dans les métadonnées de la carte
+            let checker = (arr, target) => target.every(v => arr.includes(v));
     
-        // let containsAllIngTags = metaIngArr.every(function() {
-        //     return metaIngArr.includes(textTagsIng);
-        // });
+            if (checker(metaIngArr, textTagsIng) && checker(metaAppArr, textTagsApp) &&checker(metaUstArr, textTagsUst) ) {
+                tagsbigsearch = true; 
+                console.log(tagsbigsearch);
+            }
 
-        //  let containsAllAppTags = metaAppArr.every(function() {
-        //     return textTagsApp.includes(metaAppArr);
-        // });
-
-        //  let containsAllUstTags = metaUstArr.every(function() {
-        //     return textTagsUst.includes(metaUstArr);
-        // });
-  
-
-        let checker = (arr, target) => target.every(v => arr.includes(v));
-
-        //console.log(x[i].textContent);
-        // console.log(checker(metaIngArr, textTagsIng));
-        // console.log(checker(metaAppArr, textTagsApp));
-        // console.log(checker(metaUstArr, textTagsUst));
-
-        if (checker(metaIngArr, textTagsIng) && checker(metaAppArr, textTagsApp) &&checker(metaUstArr, textTagsUst) ) {
-            tagsbigsearch = true; 
-            console.log(tagsbigsearch);
-        }
+            console.log(bigsearch + '&&' + tagsbigsearch) ;
+            if (bigsearch && tagsbigsearch) {
+             card.parentElement.classList.remove("hidden");
+            } else {
+             card.parentElement.classList.add("hidden");
+            }
+     
 
 
-   
-       console.log(bigsearch + '&&' + tagsbigsearch) ;
-       if (bigsearch && tagsbigsearch) {
-        x[i].parentElement.classList.remove("hidden");
-       } else {
-        x[i].parentElement.classList.add("hidden");
-       }
-
+    });
     
-
-
-
-
-
-    }
 
     reloadCurrentTagsAvailable();
     grabCurrentTagsAndListenForDelete();
@@ -229,7 +148,7 @@ function global_search() {
 function filter_select(cat, thisInput) {
 
    console.log(cat);
-    const x = document.querySelectorAll(cat);
+    const tagsSelectable = document.querySelectorAll(cat);
     let inputVal = thisInput.value
     console.log(inputVal.length + cat + thisInput);
 
@@ -269,21 +188,31 @@ function filter_select(cat, thisInput) {
     
     inputVal = inputVal.toLowerCase();
 
-    for (i = 0; i < x.length; i++) { 
-        //console.log('card: ', x[i].parentElement);
+    // for (i = 0; i < x.length; i++) { 
+    //     //console.log('card: ', x[i].parentElement);
    
-        if (!x[i].textContent.toLowerCase().includes(inputVal)) {
+    //     if (!x[i].textContent.toLowerCase().includes(inputVal)) {
+    //         //console.log(x[i].textContent + 'non');
+    //         x[i].style.display="none";
+    //     }
+    //     else {
+    //         //console.log(x[i].textContent + 'oui');
+    //         x[i].style.display="block";                 
+    //     }
+    // }
+
+    tagsSelectable.forEach( tag =>  {
+        if (!tag.textContent.toLowerCase().includes(inputVal)) {
             //console.log(x[i].textContent + 'non');
-            x[i].style.display="none";
+            tag.style.display="none";
         }
         else {
             //console.log(x[i].textContent + 'oui');
-            x[i].style.display="block";                 
+            tag.style.display="block";                 
         }
-    }
+    })
 
 }
-
 
 function add_elements(e) {
     console.log(e.target.className); 
@@ -340,17 +269,12 @@ function add_elements(e) {
     }
 
     grabCurrentTagsAndListenForDelete();
-    //reloadCurrentTagsAvailable();
     loadEventListenerToAddTagsOnClick();
     
 }
 
-
-
 function reloadCurrentTagsAvailable() {
     
-    console.log('reload coucou');
-
     //grab all elements présent on the page
         const IngMetaOnPage = document.querySelectorAll(".card:not(.hidden) .ingMeta");
         const AppMetaOnPage = document.querySelectorAll(".card:not(.hidden) .appMeta");
@@ -372,41 +296,24 @@ function reloadCurrentTagsAvailable() {
 
         console.log(readyToUseIngMetaOnPage , readyToUseAppMetaOnPage, readyToUseUstMetaOnPage);
 
-
     //prendre la liste des tags dans les selects 
-    // je boucle sur les li 
-    for( li of ingEls) {
-        let liEl = li.textContent.toLowerCase()
+    function displayOnlyTagsExistingInCurrentCards(cat, meta) {
+        cat.forEach( li => {
+            // je boucle sur les li 
+            let liEl = li.textContent.toLowerCase()
             // si la li est PAS  dans la liste des éléments sur la page
-        if (!readyToUseIngMetaOnPage.includes(liEl) ) {
-              //display none
-            li.classList.add("hidden");
-        } else if (readyToUseIngMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
-            li.classList.remove("hidden");
-        }
-    }
+            if (!meta.includes(liEl) ) {
+                //display none
+                li.classList.add("hidden");
+            } else if (meta.includes(liEl) && li.classList.contains("hidden")) {
+                li.classList.remove("hidden");
+            }
+        })
+    }    
 
-    for( li of apEls) {
-        let liEl = li.textContent.toLowerCase()
-            // si la li est PAS  dans la liste des éléments sur la page
-        if (!readyToUseAppMetaOnPage.includes(liEl) ) {
-              //display none
-            li.classList.add("hidden");
-        } else if (readyToUseAppMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
-            li.classList.remove("hidden");
-        }
-    }
-
-    for( li of ustEls) {
-        let liEl = li.textContent.toLowerCase()
-            // si la li est PAS  dans la liste des éléments sur la page
-        if (!readyToUseUstMetaOnPage.includes(liEl) ) {
-              //display none
-            li.classList.add("hidden");
-        }  else if (readyToUseUstMetaOnPage.includes(liEl) && li.classList.contains("hidden")) {
-            li.classList.remove("hidden");
-        }
-    }
+    displayOnlyTagsExistingInCurrentCards(ingEls, readyToUseIngMetaOnPage);
+    displayOnlyTagsExistingInCurrentCards(apEls, readyToUseAppMetaOnPage); 
+    displayOnlyTagsExistingInCurrentCards(ustEls, readyToUseUstMetaOnPage);
     
 }
   
