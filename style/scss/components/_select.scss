@@ -113,6 +113,10 @@
 
       input {
         border-radius: 5px;
+        &::placeholder {
+          color: white;
+          opacity: 1;
+        }
       }
 
       img {

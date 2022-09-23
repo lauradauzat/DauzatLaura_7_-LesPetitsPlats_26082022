@@ -27,7 +27,7 @@
         <div class="select-container">
             <div id="ig-select" data-state="collapsed" >
                 <div class="input-container">
-                    <input id="ingSearch" type="text" placeholder="Rechercher un ingrédient">
+                    <input id="ingSearch" type="text" placeholder="Ingrédient">
                     <img id="arrow-up" class="input-img" src="/assets/up.png" alt="">
                 </div>
                 
@@ -39,7 +39,7 @@
 
             <div id="ap-select" data-state="collapsed" >
                 <div class="input-container">
-                    <input id="apSearch" type="text" placeholder="Rechercher un appareil">
+                    <input id="apSearch" type="text" placeholder="Appareil">
                     <img id="arrow-ap" class="input-img" src="/assets/up.png" alt="">
                 </div>
                 
@@ -52,7 +52,7 @@
 
             <div id="ust-select" data-state="collapsed">
                 <div class="input-container" >
-                    <input id="ustSearch" type="text" placeholder="Rechercher un ustensile">
+                    <input id="ustSearch" type="text" placeholder="Ustensile">
                     <img id="arrow-ust" class="input-img" src="/assets/up.png" alt="">
                 </div>
 
@@ -63,7 +63,9 @@
           
         </div>
     </header>
-    <main>
+    <main id="main">
+        <p id="nothing-to-display" class="hidden"> « Aucune recette ne correspond à votre critère… vous pouvez
+            chercher « tarte aux pommes », « poisson »` </p>
         <div class="card-container" id="card-container">
 
         </div>

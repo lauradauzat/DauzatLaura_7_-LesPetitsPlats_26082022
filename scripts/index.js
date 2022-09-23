@@ -111,11 +111,14 @@ function createUstensilList()  {
 }
 
 function handleOpenCloseIng() {
+  console.log('coucou');
   const state = igSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     igSelect.setAttribute("data-state", "open");
+    inputIng.placeholder = "Rechercher un ingrédient";
   } else {
     igSelect.setAttribute("data-state", "collapsed");
+    inputIng.placeholder = "Ingrédient";
   }
   console.log(state);
 }
@@ -124,8 +127,10 @@ function handleOpenCloseAp() {
   const state = apSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     apSelect.setAttribute("data-state", "open");
+    inputAp.placeholder = "Rechercher un appareil";
   } else {
     apSelect.setAttribute("data-state", "collapsed");
+    inputAp.placeholder = "Appareil";
   }
   console.log(state);
 }
@@ -134,8 +139,10 @@ function handleOpenCloseUst() {
   const state = ustSelect.getAttribute('data-state');
   if (state == 'collapsed') {
     ustSelect.setAttribute("data-state", "open");
+    inputUst.placeholder = "Rechercher un ustensile";
   } else {
     ustSelect.setAttribute("data-state", "collapsed");
+    inputUst.placeholder = "Ustensile";
   }
   console.log(state);
 }

@@ -226,6 +226,26 @@ main {
   border-radius: 5px;
 }
 
+.select-container #ig-select[data-state="collapsed"] input::-webkit-input-placeholder, .select-container #ap-select[data-state="collapsed"] input::-webkit-input-placeholder, .select-container #ust-select[data-state="collapsed"] input::-webkit-input-placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.select-container #ig-select[data-state="collapsed"] input:-ms-input-placeholder, .select-container #ap-select[data-state="collapsed"] input:-ms-input-placeholder, .select-container #ust-select[data-state="collapsed"] input:-ms-input-placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.select-container #ig-select[data-state="collapsed"] input::-ms-input-placeholder, .select-container #ap-select[data-state="collapsed"] input::-ms-input-placeholder, .select-container #ust-select[data-state="collapsed"] input::-ms-input-placeholder {
+  color: white;
+  opacity: 1;
+}
+
+.select-container #ig-select[data-state="collapsed"] input::placeholder, .select-container #ap-select[data-state="collapsed"] input::placeholder, .select-container #ust-select[data-state="collapsed"] input::placeholder {
+  color: white;
+  opacity: 1;
+}
+
 .select-container #ig-select[data-state="collapsed"] img, .select-container #ap-select[data-state="collapsed"] img, .select-container #ust-select[data-state="collapsed"] img {
   -webkit-transform: rotate(180deg);
           transform: rotate(180deg);

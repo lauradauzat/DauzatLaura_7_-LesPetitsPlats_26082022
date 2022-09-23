@@ -4,6 +4,7 @@ const inputIng = document.getElementById('ingSearch');
 const inputAp = document.getElementById('apSearch'); 
 const inputUst = document.getElementById('ustSearch');
 const tagsCont = document.getElementById('tags-container');
+const nothingToDiplay = document.getElementById('nothing-to-display'); 
 
 let allEls = document.querySelectorAll('els');
 let ingEls = document.querySelectorAll('.elIng'); 
@@ -35,14 +36,13 @@ input.addEventListener('input',  function(){
   });
 
 inputIng.addEventListener('input', function() {
-    filter_select('.elIng', inputIng);
+    filter_select('.elIng:not(.hidden)', inputIng);
 });
 inputAp.addEventListener('input', function() {
-    console.log('coucouuuuu');
-    filter_select('.elAp', inputAp );
+    filter_select('.elAp:not(.hidden)', inputAp );
 });
 inputUst.addEventListener('input', function() {
-    filter_select('.elUst', inputUst);
+    filter_select('.elUst:not(.hidden)', inputUst);
 });
 
 loadEventListenerToAddTagsOnClick();
@@ -77,7 +77,7 @@ function loadEventListenerToAddTagsOnClick() {
 function global_search() {
     const cards = document.querySelectorAll('.card-txt');
 
-    console.log('x, ' + cards.length);
+    //console.log('x, ' + cards.length);
     //console.log('in global search func');
     let inputVal = document.getElementById('search').value;
     inputVal = inputVal.toLowerCase();
@@ -141,27 +141,30 @@ function global_search() {
 
     reloadCurrentTagsAvailable();
     grabCurrentTagsAndListenForDelete();
-    
+    displayMessageIfNoRecipeAvailable();
+
+
+
 
 }
 
 function filter_select(cat, thisInput) {
 
-   console.log(cat);
+   //console.log(cat);
     const tagsSelectable = document.querySelectorAll(cat);
     let inputVal = thisInput.value
-    console.log(inputVal.length + cat + thisInput);
+    //console.log(inputVal.length + cat + thisInput);
 
     if (inputVal.length != 0 ) {
 
         switch (cat) {
-            case '.elIng' :
+            case '.elIng:not(.hidden)' :
                 igSelect.setAttribute("data-state", "open");
                 break;
-            case '.elAp' :
+            case '.elAp:not(.hidden)' :
                 apSelect.setAttribute("data-state", "open");
                 break;
-            case '.elUst' :
+            case '.elUst:not(.hidden)' :
                 ustSelect.setAttribute("data-state", "open");
                 break;   
             default:
@@ -172,14 +175,17 @@ function filter_select(cat, thisInput) {
     if (inputVal.length == 0 ) {
 
         switch (cat) {
-            case '.elIng' :
+            case '.elIng:not(.hidden)' :
                 igSelect.setAttribute("data-state", "collapsed");
+
                 break;
-            case '.elAp' :
+            case '.elAp:not(.hidden)' :
                 apSelect.setAttribute("data-state", "collapsed");
+
                 break;
-            case '.elUst' :
+            case '.elUst:not(.hidden)' :
                 ustSelect.setAttribute("data-state", "collapsed");
+
                 break;   
             default:
                 console.log(`Sorry, we are out of ${cat}.`);        
@@ -188,27 +194,20 @@ function filter_select(cat, thisInput) {
     
     inputVal = inputVal.toLowerCase();
 
-    // for (i = 0; i < x.length; i++) { 
-    //     //console.log('card: ', x[i].parentElement);
-   
-    //     if (!x[i].textContent.toLowerCase().includes(inputVal)) {
-    //         //console.log(x[i].textContent + 'non');
-    //         x[i].style.display="none";
-    //     }
-    //     else {
-    //         //console.log(x[i].textContent + 'oui');
-    //         x[i].style.display="block";                 
-    //     }
-    // }
 
     tagsSelectable.forEach( tag =>  {
         if (!tag.textContent.toLowerCase().includes(inputVal)) {
             //console.log(x[i].textContent + 'non');
-            tag.style.display="none";
+            //tag.style.display="none";
+            tag.classList.add("hidden");
         }
         else {
             //console.log(x[i].textContent + 'oui');
-            tag.style.display="block";                 
+            //tag.style.display="block";  
+            if (tag.classList.contains('hidden')) {
+                tag.classList.remove("hidden");    
+            }
+                     
         }
     })
 
@@ -218,7 +217,7 @@ function add_elements(e) {
     console.log(e.target.className); 
     if(e.target.className == "elIng" ) {
         ingSelected.push(e.target.textContent);
-        console.log('true');
+        //console.log('true');
         ingSelected.forEach((element) => {
             if (!cleanIngSelected.includes(element)) {
                 cleanIngSelected.push(element);
@@ -236,7 +235,7 @@ function add_elements(e) {
 
     else if (e.target.className == "elAp") {
         apSelected.push(e.target.textContent);
-        console.log('true');
+        //console.log('true');
         apSelected.forEach((element) => {
 
             if (!cleanApSelected.includes(element)) {
@@ -253,7 +252,7 @@ function add_elements(e) {
 
     else if (e.target.className == "elUst") {
         ustSelected.push(e.target.textContent);
-        console.log('true');
+        //console.log('true');
         ustSelected.forEach((element) => {
 
             if (!cleanUstSelected.includes(element)) {
@@ -287,14 +286,16 @@ function reloadCurrentTagsAvailable() {
         const IngMetaOnPageArrMapped = IngMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
         const AppMetaOnPageArrMapped = AppMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
         const UstMetaOnPageArrMapped = UstMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
+        //console.log('---------' + IngMetaOnPageArrMapped); 
 
-
+        //supprimer les doublons
         const readyToUseIngMetaOnPage =  Array.from(new Set(IngMetaOnPageArrMapped));
         const readyToUseAppMetaOnPage =  Array.from(new Set(AppMetaOnPageArrMapped));
         const readyToUseUstMetaOnPage =  Array.from(new Set(UstMetaOnPageArrMapped));
+        //console.log('===========' + readyToUseIngMetaOnPage); 
 
 
-        console.log(readyToUseIngMetaOnPage , readyToUseAppMetaOnPage, readyToUseUstMetaOnPage);
+        //console.log(readyToUseIngMetaOnPage , readyToUseAppMetaOnPage, readyToUseUstMetaOnPage);
 
     //prendre la liste des tags dans les selects 
     function displayOnlyTagsExistingInCurrentCards(cat, meta) {
@@ -317,3 +318,16 @@ function reloadCurrentTagsAvailable() {
     
 }
   
+function displayMessageIfNoRecipeAvailable() {
+    if ( document.querySelectorAll(".card:not(.hidden)").length === 0 ) {
+        console.log('page vide');
+        if (nothingToDiplay.classList.contains('hidden') ) {
+            nothingToDiplay.classList.remove('hidden'); 
+        }
+    } else {
+        console.log('Il y a encore des éléments sur la page ');
+        if (!nothingToDiplay.classList.contains('hidden')){
+            nothingToDiplay.classList.add('hidden');
+        }  
+    }
+}
