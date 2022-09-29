@@ -140,7 +140,7 @@ function global_search() {
     
 
     reloadCurrentTagsAvailable();
-    grabCurrentTagsAndListenForDelete();
+    //  grabCurrentTagsAndListenForDelete();
     displayMessageIfNoRecipeAvailable();
 
 

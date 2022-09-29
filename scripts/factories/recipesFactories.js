@@ -14,7 +14,7 @@ function recipesFactory(recipe) {
         upCard.innerHTML = `
             <h2>${recipe.name}</h2>
             <div  class="timing-card">
-                <img src="../assets/time.png"></img>
+                <img src="assets/time.png"></img>
                 <p>${recipe.time} min </p>
             </div> 
         `;
@@ -109,7 +109,7 @@ function recipesFactory(recipe) {
 
     function getTagsCardDOM(type) {
         let img = document.createElement('img')
-        img.src = "../assets/x.png"
+        img.src = "assets/x.png"
         const tag = document.createElement('div'); 
         tag.setAttribute('class', `tag ${type}`); 
         tag.textContent = recipe;
