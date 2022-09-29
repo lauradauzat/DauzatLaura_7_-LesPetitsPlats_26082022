@@ -172,6 +172,7 @@ function filter_select(cat, thisInput) {
         }
     }
 
+    //refermer lorsque l'on efface le texte
     if (inputVal.length == 0 ) {
 
         switch (cat) {
@@ -194,16 +195,13 @@ function filter_select(cat, thisInput) {
     
     inputVal = inputVal.toLowerCase();
 
-
+    //filtre les tags  présent  dans les selects sur le DOM en fonction du contenu de l'input
     tagsSelectable.forEach( tag =>  {
         if (!tag.textContent.toLowerCase().includes(inputVal)) {
-            //console.log(x[i].textContent + 'non');
-            //tag.style.display="none";
             tag.classList.add("hidden");
         }
         else {
-            //console.log(x[i].textContent + 'oui');
-            //tag.style.display="block";  
+
             if (tag.classList.contains('hidden')) {
                 tag.classList.remove("hidden");    
             }
@@ -274,19 +272,21 @@ function add_elements(e) {
 
 function reloadCurrentTagsAvailable() {
     
-    //grab all elements présent on the page
+    //grab all metatag from elements présent on the page
         const IngMetaOnPage = document.querySelectorAll(".card:not(.hidden) .ingMeta");
         const AppMetaOnPage = document.querySelectorAll(".card:not(.hidden) .appMeta");
         const UstMetaOnPage = document.querySelectorAll(".card:not(.hidden) .ustMeta");
 
+        //to array
         const IngMetaOnPageArr = [...IngMetaOnPage]; 
         const AppMetaOnPageArr = [...AppMetaOnPage]; 
         const UstMetaOnPageArr = [...UstMetaOnPage]; 
 
+        //tous au même format (trim et lowercase)
         const IngMetaOnPageArrMapped = IngMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
         const AppMetaOnPageArrMapped = AppMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
         const UstMetaOnPageArrMapped = UstMetaOnPageArr.map( li => li.textContent.toLowerCase().trimStart().trimEnd()); 
-        //console.log('---------' + IngMetaOnPageArrMapped); 
+
 
         //supprimer les doublons
         const readyToUseIngMetaOnPage =  Array.from(new Set(IngMetaOnPageArrMapped));
@@ -297,24 +297,25 @@ function reloadCurrentTagsAvailable() {
 
         //console.log(readyToUseIngMetaOnPage , readyToUseAppMetaOnPage, readyToUseUstMetaOnPage);
 
-    //prendre la liste des tags dans les selects 
-    function displayOnlyTagsExistingInCurrentCards(cat, meta) {
-        cat.forEach( li => {
-            // je boucle sur les li 
-            let liEl = li.textContent.toLowerCase()
-            // si la li est PAS  dans la liste des éléments sur la page
-            if (!meta.includes(liEl) ) {
-                //display none
-                li.classList.add("hidden");
-            } else if (meta.includes(liEl) && li.classList.contains("hidden")) {
-                li.classList.remove("hidden");
-            }
-        })
-    }    
+        //cache les li dans les selects si ils ne sont plus dispo dans les méta des cartes présente
+        function displayOnlyTagsExistingInCurrentCards(cat, meta) {
+            //prendre la liste des tags dans les selects 
+            cat.forEach( li => {
+                // je boucle sur les li 
+                let liEl = li.textContent.toLowerCase()
+                // si la li est PAS  dans la liste des éléments sur la page
+                if (!meta.includes(liEl) ) {
+                    //display none
+                    li.classList.add("hidden");
+                } else if (meta.includes(liEl) && li.classList.contains("hidden")) {
+                    li.classList.remove("hidden");
+                }
+            })
+        }    
 
-    displayOnlyTagsExistingInCurrentCards(ingEls, readyToUseIngMetaOnPage);
-    displayOnlyTagsExistingInCurrentCards(apEls, readyToUseAppMetaOnPage); 
-    displayOnlyTagsExistingInCurrentCards(ustEls, readyToUseUstMetaOnPage);
+        displayOnlyTagsExistingInCurrentCards(ingEls, readyToUseIngMetaOnPage);
+        displayOnlyTagsExistingInCurrentCards(apEls, readyToUseAppMetaOnPage); 
+        displayOnlyTagsExistingInCurrentCards(ustEls, readyToUseUstMetaOnPage);
     
 }
   

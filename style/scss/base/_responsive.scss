@@ -1,0 +1,52 @@
+/* Responsive et Mobile */
+
+@media only screen and (max-width: 1250px) {
+    #card-container {
+        grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  @media only screen and (max-width: 780px) {
+    #card-container {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        
+        .card {
+            width: 90%;
+        }
+    }
+
+    #tags-container {
+        width: 90%;
+    }
+
+    .select-container {
+        flex-direction: column;
+        gap: 0px !important; 
+        align-items: center; 
+    }
+
+    .select-container .ingredients-container, .select-container .appareil-container, .select-container .ust-container {
+        width: 90%;
+        padding-right: 20px;
+    }
+
+    .select-container #ig-select input, .select-container #ap-select input, .select-container #ust-select input {
+        width: 90%;
+    }
+
+    .select-container #ig-select[data-state="collapsed"], .select-container #ap-select[data-state="collapsed"], .select-container #ust-select[data-state="collapsed"] {
+        width: 90%;
+    }
+
+    .select-container #ig-select img, .select-container #ap-select img, .select-container #ust-select img {
+        left: calc(90% - 20px);
+    }
+
+
+    .select-container #ig-select, .select-container #ap-select, .select-container #ust-select {
+        width: 90%;
+    }
+
+    
+  }

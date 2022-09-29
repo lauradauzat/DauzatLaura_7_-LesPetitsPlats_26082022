@@ -2,10 +2,6 @@
   font-family: 'Lato', sans-serif;
 }
 
-main {
-  margin-top: 150px;
-}
-
 #card-container {
   display: -ms-grid;
   display: grid;
@@ -195,7 +191,7 @@ main {
   padding: 20px;
   padding-right: 60px;
   max-height: 405px;
-  overflow: scroll;
+  overflow: overlay;
   position: relative;
   top: -23px;
   z-index: 10;
@@ -328,5 +324,53 @@ header img {
 
 #tags-container .ap {
   background-color: #68D9A4;
+}
+
+/* Responsive et Mobile */
+@media only screen and (max-width: 1250px) {
+  #card-container {
+    -ms-grid-columns: 1fr 1fr;
+        grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media only screen and (max-width: 780px) {
+  #card-container {
+    -ms-grid-columns: 1fr;
+        grid-template-columns: 1fr;
+    justify-items: center;
+  }
+  #card-container .card {
+    width: 90%;
+  }
+  #tags-container {
+    width: 90%;
+  }
+  .select-container {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 0px !important;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .select-container .ingredients-container, .select-container .appareil-container, .select-container .ust-container {
+    width: 90%;
+    padding-right: 20px;
+  }
+  .select-container #ig-select input, .select-container #ap-select input, .select-container #ust-select input {
+    width: 90%;
+  }
+  .select-container #ig-select[data-state="collapsed"], .select-container #ap-select[data-state="collapsed"], .select-container #ust-select[data-state="collapsed"] {
+    width: 90%;
+  }
+  .select-container #ig-select img, .select-container #ap-select img, .select-container #ust-select img {
+    left: calc(90% - 20px);
+  }
+  .select-container #ig-select, .select-container #ap-select, .select-container #ust-select {
+    width: 90%;
+  }
 }
 /*# sourceMappingURL=main.css.map */
