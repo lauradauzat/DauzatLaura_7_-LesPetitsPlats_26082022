@@ -26,6 +26,7 @@ let cvaArr = [];
 let cvuArr = [];
 let cviArr = []; 
 
+// listen barre de recherche principale et trigger global search si 0 ou +de 2 chars
 input.addEventListener('input',  function(){
    if(input.value.length > 2) {
     global_search();
@@ -33,8 +34,10 @@ input.addEventListener('input',  function(){
    if(input.value.length == 0) {
     global_search();
    }
-  });
+});
 
+
+//listen les inputs des sélects pour filter les tags
 inputIng.addEventListener('input', function() {
     filter_select('.elIng:not(.hidden)', inputIng);
 });
@@ -45,6 +48,7 @@ inputUst.addEventListener('input', function() {
     filter_select('.elUst:not(.hidden)', inputUst);
 });
 
+//add eventlistenner sur chacun des tags dans les selects
 loadEventListenerToAddTagsOnClick();
 
 function loadEventListenerToAddTagsOnClick() {
@@ -74,6 +78,7 @@ function loadEventListenerToAddTagsOnClick() {
 
 }
 
+//algo de recherche 
 function global_search() {
     const cards = document.querySelectorAll('.card-txt');
 
@@ -148,6 +153,8 @@ function global_search() {
 
 }
 
+
+//ouvre et ferme les container des selects en fonction de l'input 
 function filter_select(cat, thisInput) {
 
    //console.log(cat);
@@ -211,6 +218,7 @@ function filter_select(cat, thisInput) {
 
 }
 
+//ajoute un élément dans la liste des éléments sélectionnés
 function add_elements(e) {
     console.log(e.target.className); 
     if(e.target.className == "elIng" ) {
@@ -270,6 +278,7 @@ function add_elements(e) {
     
 }
 
+//loop dans les tags et n'affiche que ceux qui existent dans les cartes actuellement visible sur le DOM
 function reloadCurrentTagsAvailable() {
     
     //grab all metatag from elements présent on the page
@@ -319,6 +328,7 @@ function reloadCurrentTagsAvailable() {
     
 }
   
+//affiche message si pas de recette sur la carte
 function displayMessageIfNoRecipeAvailable() {
     if ( document.querySelectorAll(".card:not(.hidden)").length === 0 ) {
         console.log('page vide');

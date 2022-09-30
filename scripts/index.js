@@ -49,11 +49,20 @@ apArrow.addEventListener('click', function() {
   handleOpenCloseAp();
 });
 
+//handle click on arrow on ustentile select
 ustArrow.addEventListener('click', function() {
   handleOpenCloseUst();
 })
 
 
+function init() {
+  displayData(recipes); 
+  createIngredientList();
+  createApplianceList();
+  createUstensilList();
+}
+
+//utilise le fichier backend et la factory pour afficher les cartes
 async function displayData(recipes) {
   recipes.forEach((recipe) => {
     //récupère la liste d'ingrédients pour les stocker dans une var à part et les trier plus tard
@@ -71,13 +80,8 @@ async function displayData(recipes) {
   })
 }
 
-function init() {
-  displayData(recipes); 
-  createIngredientList();
-  createApplianceList();
-  createUstensilList();
-}
 
+//create selects content using  factory 
 function createIngredientList() {
   cleanIngList = [...new Set(IngredientsList)];
   cleanIngListArray = Array.from(cleanIngList);
@@ -86,8 +90,6 @@ function createIngredientList() {
     const ingSelectCardDOM = recipesFactory(ing).getingSelectCardDOM();
     ingSelectContainer.appendChild(ingSelectCardDOM); 
   })
-
-
 }
 
 function createApplianceList() {
@@ -109,6 +111,8 @@ function createUstensilList()  {
     ustSelectContainer.appendChild(ustSelectDOM)
   })
 }
+
+//open and close selects
 
 function handleOpenCloseIng() {
   console.log('coucou');
@@ -147,6 +151,7 @@ function handleOpenCloseUst() {
   console.log(state);
 }
 
+//les tags sélectionnés sont crée et supprimé et non caché, il fautrajouter l'addEventListenner à chaque modif
 function grabCurrentTagsAndListenForDelete(){
   let currentTags = document.querySelectorAll("div.tag"); 
 
