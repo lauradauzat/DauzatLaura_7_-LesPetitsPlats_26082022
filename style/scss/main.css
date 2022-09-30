@@ -191,7 +191,7 @@
   padding: 20px;
   padding-right: 60px;
   max-height: 405px;
-  overflow: overlay;
+  overflow: scroll;
   position: relative;
   top: -23px;
   z-index: 10;
