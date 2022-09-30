@@ -131,6 +131,7 @@
 .select-container #ig-select input, .select-container #ap-select input, .select-container #ust-select input {
   color: white;
   width: -webkit-fill-available;
+  width: -moz-available;
   border-radius: 5px 5px 0 0;
   border: none;
   padding: 20px;
